@@ -1,0 +1,9 @@
+vsf_cmdio_write_exit
+vsf_cmdio_write_raw
+vsf_cmdio_write
+vsf_cmdio_write_str
+die
+die2
+vsf_log_do_log
+vsf_log_line
+

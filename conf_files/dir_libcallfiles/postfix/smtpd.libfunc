@@ -1,0 +1,7 @@
+smtpd_check_reject
+smtpd_chat_reply
+msg_info
+msg_warn
+msg_error
+msg_fatal
+msg_panic

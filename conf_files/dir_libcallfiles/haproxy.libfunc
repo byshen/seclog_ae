@@ -1,0 +1,5 @@
+ha_alert
+ha_notice
+ha_warning
+send_log
+sess_log
