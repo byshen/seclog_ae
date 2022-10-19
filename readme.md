@@ -14,6 +14,7 @@ This repository includes source code of AceInstrument (SecLog), a static analysi
 
 ## 0. Prerequisite
 SecLog requires two prerequisites.
+- `Clang 9.0.0` for compiling LLVM; 
 - `LLVM 9.0.0` for compiling the source code; 
 - [`wllvm`](https://github.com/travitch/whole-program-llvm) for extracting the software's LLVM bitcode. 
 
@@ -67,13 +68,15 @@ cd ~/llvm-9.0.0.obj
 make -j6
 ```
 
-## 2. Prepare software bitcode files
+## 2. Prepare software bitcode files 
+
+
+
+### For artifact evaluation, the bitcode files used in our evaluation has been provided in `dir_bcfiles/`.
+
+### [Optional] For the compilation instructions, see this [detailed instructions here](./compile-software.md) . 
 
 Compile the software source into LLVM bitcode files. AceInstrument will conduct analysis on the bitcode `.bc` files.
-
-### For the compilation instructions, see this [detailed instructions here](./compile-software.md). 
-
-The bitcode files used in our evaluation has been provided in `dir_bcfiles/`.
 
 After you obtain the software binary `software_name`, simply execute the following command.
 
@@ -98,6 +101,16 @@ clang -emit-llvm -o test_struct_param.bc -c test_struct_param.c
 ```bash
 ./scripts/opt_exec.sh softwarename
 ```
+
+Example:
+```bash
+# Quick test
+./scripts/opt_exec.sh test_releatParam
+
+# Quick run on real software
+./scripts/opt_exec.sh msqld
+```
+
 
 3. The analysis results will be in `output/softwarename.output`. To process the outputs, run the following command
 
