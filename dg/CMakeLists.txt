@@ -1,12 +1,12 @@
-OPTION(LLVM_DG "Support for LLVM Dependency graph" ON)
-OPTION(ENABLE_CFG "Add support for CFG edges to the graph" ON)
+OPTION(LLVM_DG "Support for LLVM Dependency graph" OFF)
+OPTION(ENABLE_CFG "Add support for CFG edges to the graph" OFF)
 set(LLVM_INCLUDE_DIRS "/usr/local/clang_9.0.0/include")
 set(LLVM_LIBRARY_DIRS "/usr/local/clang_9.0.0/lib")
 set(LLVM_DEFINITIONS "-D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS")
 
 
-OPTION(LLVM_DG "Support for LLVM Dependency graph" ON)
-OPTION(ENABLE_CFG "Add support for CFG edges to the graph" ON)
+OPTION(LLVM_DG "Support for LLVM Dependency graph" OFF)
+OPTION(ENABLE_CFG "Add support for CFG edges to the graph" OFF)
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
