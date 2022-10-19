@@ -22,7 +22,7 @@ mkdir llvm-9.0.0.obj
 mkdir llvm-9.0.0.install
 
 cd ~/llvm-9.0.0.obj
-cmake  -DLLVM_TARGETS_TO_BUILD=X86 -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_INSTALL_PREFIX=../llvm-9.0.0.install -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ../llvm-9.0.0.src
+cmake  -DLLVM_TARGETS_TO_BUILD=X86 -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_INSTALL_PREFIX=../llvm-9.0.0.install -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DBUILD_SHARED_LIBS=ON ../llvm-9.0.0.src
 
 # Make could take 20 min to 1 hr depending on your machine :)
 make -j6 # or use more cores that you have.
