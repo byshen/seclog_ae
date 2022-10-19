@@ -1,0 +1,4 @@
+AuthenticateAcl(ACLChecklist*)
+ACLChecklist::nonBlockingCheck(void
+ACLChecklist::fastCheck()
+ACLChecklist::fastCheck(Acl::Tree

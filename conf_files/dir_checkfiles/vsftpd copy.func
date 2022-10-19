@@ -1,0 +1,19 @@
+vsf_access_check_file 0 EQ
+# end
+str_fileread
+str_lstat
+str_readlink
+str_unlink 0 NE 
+str_rmdir
+str_mkdir
+vsf_sysutil_stat
+vsf_sysutil_write_access
+vsf_sysutil_create_or_open_file_append
+vsf_sysutil_getpwnam
+vsf_sysutil_bind
+vsf_sysutil_listen
+vsf_sysutil_fstat
+p_peekfunc       # function pointer
+vsf_sysutil_setmodtime # the two sides are the same
+vsf_sysdep_check_auth
+ssl_session_init

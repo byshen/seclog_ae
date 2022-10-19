@@ -1,0 +1,7 @@
+authz_provider 0 0 NE 
+authn_provider 0 1 NE
+authn_provider 1 2 NE
+# 
+check_authorization
+check_password 1 GRANTED
+get_realm_hash NE AUTH_USER_FOUND

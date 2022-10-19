@@ -1,0 +1,5 @@
+ACLCheckCommandPerm 0 NE
+ACLAuthenticateUser 0 NE
+dlopen 4399 EQ
+open64 -1 EQ
+fstat64 -1 EQ

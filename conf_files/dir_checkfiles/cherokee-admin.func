@@ -1,0 +1,16 @@
+cherokee_validator_check 0 NE
+cherokee_access_add 0 NE
+cherokee_opendir 4399 EQ
+cherokee_access 0 NE
+cherokee_mkdir_p_perm 0 NE
+cherokee_getpwnam 0 NE
+cherokee_lstat 0 LT
+cherokee_connection_check_ip_validation 0 NE
+cherokee_connection_check_authentication 0 NE
+cherokee_connection_check_http_method 0 NE
+cherokee_connection_check_only_secure 0 NE
+cherokee_open 0 LT
+
+# this function is only used in cherokee_access_add
+cherokee_access_add_ip 0 NE
+cherokee_access_add_subnet 0 NE
