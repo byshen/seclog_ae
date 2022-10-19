@@ -19,8 +19,11 @@
 int initStructFuncs(string fileName,
                     list<StructFieldPair *> &checkStructFuncNames) {
   ifstream infile(fileName.c_str(), ios::in);
-  if (!infile.is_open()) // can not open file; use exception to abort early :)
-    throw std::ios_base::failure(fileName + "not found");
+  if (!infile.is_open()) {
+    // can not open file; use exception to abort early :)
+    LOGERR(fileName + "not found");
+    static_assert(false);
+  }
 
   string line;
   string structName;
@@ -42,8 +45,11 @@ int initStructFuncsWithRetval(
     string fileName,
     map<StructFieldPair *, ResultCheckFunc *> &checkFuncNames) {
   ifstream infile(fileName.c_str(), ios::in);
-  if (!infile.is_open()) // can not open file; use exception to abort early :)
-    throw std::ios_base::failure(fileName + "not found");
+  if (!infile.is_open()) {
+    // can not open file; use exception to abort early :)
+    LOGERR(fileName + "not found");
+    static_assert(false);
+  }
 
   string line;
   string funcName;
@@ -111,8 +117,11 @@ int initFuncs(string fileName, list<string> &checkFuncNames) {
   // errs() << fileName << "\n";
   ifstream infile(fileName.c_str(), ios::in);
 
-  if (!infile.is_open()) // can not open file; use exception to abort early :)
-    throw std::ios_base::failure(fileName + "not found");
+  if (!infile.is_open()) {
+    // can not open file; use exception to abort early :)
+    LOGERR(fileName + "not found");
+    static_assert(false);
+  }
 
   string line;
   string funcName;
@@ -189,13 +198,12 @@ int initFuncsWithRetval(string fileName,
         // TODO handle result check function with field checks
         iss >> fieldVal;
         checkFuncNames[funcName]->setField(fieldVal);
-      } else { 
+      } else {
         LOGDEBUG("valCheckFuncName", valCheckFuncName, "\t", val, "\n");
         if (valCheckFuncName[0] == '*') {
           // valCheckFuncName is like "*result_check_func_1"
           checkFuncNames[funcName]->setRealRCF(valCheckFuncName.substr(1));
-        } 
-        else {
+        } else {
           // this is for cases like vsf_sysutil_retval_is_error
           checkFuncNames[funcName]->setValCheckFuncName(valCheckFuncName);
         }
@@ -210,7 +218,7 @@ int initFuncsWithRetval(string fileName,
     }
   }
   LOGINFO("read ", cnt, " functions from ", fileName, "\n");
-  
+
   return 0;
 }
 

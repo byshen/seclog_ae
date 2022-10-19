@@ -39,7 +39,7 @@ mkdir llvm-9.0.0.obj
 mkdir llvm-9.0.0.install
 
 cd llvm-9.0.0.obj
-cmake  -DLLVM_TARGETS_TO_BUILD=X86 -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=../llvm-9.0.0.install -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ../llvm-9.0.0.src
+cmake  -DLLVM_TARGETS_TO_BUILD=X86 -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_INSTALL_PREFIX=../llvm-9.0.0.install -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ../llvm-9.0.0.src
 
 # Make could take 20 min to 1 hr depending on your machine :)
 make -j6 # or use more cores that you have.
@@ -71,7 +71,9 @@ make -j6
 
 Compile the software source into LLVM bitcode files. AceInstrument will conduct analysis on the bitcode `.bc` files.
 
-### For the compilation instructions, see this [detailed instructions here](./compile-software.md).
+### For the compilation instructions, see this [detailed instructions here](./compile-software.md). 
+
+The bitcode files used in our evaluation has been provided in `dir_bcfiles/`.
 
 After you obtain the software binary `software_name`, simply execute the following command.
 

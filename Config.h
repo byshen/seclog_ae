@@ -23,8 +23,11 @@ public:
     string line;
     string directive, value;
 
-    if (!infile.is_open()) // can not open file; use exception to abort early :)
-      throw std::ios_base::failure(configFile + "not found");
+    if (!infile.is_open()) {
+      // can not open file; use exception to abort early :)
+      LOGERR(configFile + "not found");
+      static_assert(false);
+    }
 
     while (getline(infile, line)) {
       if (line.find_first_of('#', 0) == 0) {
@@ -32,7 +35,7 @@ public:
       }
       istringstream iss(line);
       iss >> directive >> value;
-      
+
       if (directive.compare("target") == 0) {
         _softwareName = value;
       }
@@ -52,7 +55,8 @@ public:
     // target and bcfiles should always be set
     if (_softwareName == "" || _bcfile == "") {
       LOGERR("Required field in the .conf is not set.");
-      throw std::runtime_error("Required file not found");
+      // throw std::runtime_error("Required file not found");
+      static_assert(false);
     }
   }
 };
