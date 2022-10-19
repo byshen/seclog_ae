@@ -143,8 +143,11 @@ int initFuncsWithRetval(string fileName,
   // errs() << fileName << "\n";
   ifstream infile(fileName.c_str(), ios::in);
 
-  if (!infile.is_open()) // can not open file; use exception to abort early :)
-    throw std::ios_base::failure(fileName + "not found");
+  if (!infile.is_open()) {
+    // can not open file; use exception to abort early :)
+    LOGERR(fileName + "not found");
+    return -1;
+  }
 
   string line;
   string funcName;
