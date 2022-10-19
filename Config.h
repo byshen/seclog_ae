@@ -26,7 +26,7 @@ public:
     if (!infile.is_open()) {
       // can not open file; use exception to abort early :)
       LOGERR(configFile + "not found");
-      static_assert(false);
+      return;
     }
 
     while (getline(infile, line)) {
@@ -56,7 +56,7 @@ public:
     if (_softwareName == "" || _bcfile == "") {
       LOGERR("Required field in the .conf is not set.");
       // throw std::runtime_error("Required file not found");
-      static_assert(false);
+      return;
     }
   }
 };

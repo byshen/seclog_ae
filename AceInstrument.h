@@ -22,7 +22,7 @@ int initStructFuncs(string fileName,
   if (!infile.is_open()) {
     // can not open file; use exception to abort early :)
     LOGERR(fileName + "not found");
-    static_assert(false);
+    return -1;
   }
 
   string line;
@@ -48,7 +48,7 @@ int initStructFuncsWithRetval(
   if (!infile.is_open()) {
     // can not open file; use exception to abort early :)
     LOGERR(fileName + "not found");
-    static_assert(false);
+    return -1;
   }
 
   string line;
@@ -120,7 +120,7 @@ int initFuncs(string fileName, list<string> &checkFuncNames) {
   if (!infile.is_open()) {
     // can not open file; use exception to abort early :)
     LOGERR(fileName + "not found");
-    static_assert(false);
+    return -1;
   }
 
   string line;
