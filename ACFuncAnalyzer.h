@@ -13,7 +13,7 @@
 #include "llvm/Analysis/PostDominators.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include <algorithm>
-#include "DGFuncAnalyzer.h"
+// #include "DGFuncAnalyzer.h"
 #include "DepGraph.h"
 #include <chrono>
 
@@ -169,7 +169,7 @@ struct ACFuncAnalyzer {
     // comment this, since we no longer need the function profiler
 #ifdef AC_FUNC_ANALYZER_DEBUG
     m_profiler = new FunctionProfiler(*M);
-    
+
     // print instr count in each function in m_profiler
     auto a = &(m_profiler->func2InstrCnt);
     auto iter = a->begin(), end = a->end();
@@ -227,7 +227,7 @@ struct ACFuncAnalyzer {
     }
     errs() << "address " << _module << "\n";
   }
-  
+
   ~ACFuncAnalyzer() {
     delete m_callGraph;
 #ifdef AC_FUNC_ANALYZER_DEBUG
@@ -422,7 +422,7 @@ struct ACFuncAnalyzer {
     }
     return false;
   }
-  
+
   bool findLogInAccessCheckFunction(Function *acfunc, ResultCheckFunc *rcf,
                                     Instruction **logInstr) {
     // TODO: How to know for sure there is a log in the function, and matches
@@ -560,7 +560,7 @@ struct ACFuncAnalyzer {
       if (hasLogFunc(logFuncs, loopIter, logInstr)) {
         // TODO: should check if this block does not post dominate both
         //       true branch and false branch
-        LOGINFO("Found log function!!!!!", **logInstr,"\n");
+        LOGINFO("Found log function!!!!!", **logInstr, "\n");
         hasLog1 = true;
         break;
       }
@@ -824,7 +824,7 @@ struct ACFuncAnalyzer {
                 if (upperContainer != nullptr) {
                   // ge
                   resultContainer->setLogLocation(upperContainer->hasLog,
-                                                  &(upperContainer->logInstr) ) ;
+                                                  &(upperContainer->logInstr));
                   resultContainer->setIsLogAtUpperLevel(true);
                 }
               }
@@ -854,11 +854,11 @@ struct ACFuncAnalyzer {
       printSetInstr(&res, "\t");
       LOGERR("\n============\n");
       // 1.2 get relevant parameters from the check function
-      getSlicedParametersFromDependeceGraph(m, acFuncName, rcf, res, slicedParams,
-                                            gvInACFunc);
-    }
-    else {
-      LOGERR("\n cannot find any return values in the access-check function.\n");
+      getSlicedParametersFromDependeceGraph(m, acFuncName, rcf, res,
+                                            slicedParams, gvInACFunc);
+    } else {
+      LOGERR(
+          "\n cannot find any return values in the access-check function.\n");
       LOGERR("\n No parameters from the access-check function are sliced.\n");
     }
   }
@@ -1007,46 +1007,28 @@ struct ACFuncAnalyzer {
       DeniedBranchContainer *denyBranchContainer = findDeniedBranch(instr, rcf);
       string insertLogFormat = "";
 
-
-      // print the log for results collection 
+      // print the log for results collection
       insertLogFormat = getInsertLogOnDenial(
-          _module, 
-          func,
-          instr,
+          _module, func, instr,
           nullptr,           // denied branch container :)
           slicedParamValues, // sliced variable from acc function
           localVars,         // global variables from both ACC and call site
           localFuncArgs);    // parameters of the call site function
 
-
       if (denyBranchContainer != nullptr) {
         // with the denied branch, we should insert log here!
         LOGERR("WE FOUND THE DENIED BRANCH!\n");
         // first, just insert a call of the log function in the denied block :)
-        insertLogFormat = getInsertLogOnDenial(
-            _module,
-            func,
-            instr,
-            denyBranchContainer,
-            slicedParamValues,
-            localVars,
-            localFuncArgs
-        );
+        insertLogFormat =
+            getInsertLogOnDenial(_module, func, instr, denyBranchContainer,
+                                 slicedParamValues, localVars, localFuncArgs);
         // denyBranchContainer->print();
       } else {
         // TODO: insert error checking code and the log messages
         LOGERR("DENIED BRANCH NOT FOUND!\n");
-        insertLogFormat = getInsertLogOnDenial(
-            _module,
-            func,
-            instr,
-            nullptr,
-            slicedParamValues,
-            localVars,
-            localFuncArgs,
-            true,
-            rcf
-        );
+        insertLogFormat = getInsertLogOnDenial(_module, func, instr, nullptr,
+                                               slicedParamValues, localVars,
+                                               localFuncArgs, true, rcf);
       }
 
       // funcname, usage #, has log in AC?, in function, denied branch,
@@ -1179,11 +1161,10 @@ struct ACFuncAnalyzer {
                                    localVars, localFuncArgs);
       localVars.insert(slicedGV.begin(), slicedGV.end());
 
-      // TODO: NEW parameters 
-      string insertLogFormat = getInsertLogOnDenial(
-          _module, func, 
-          callInst,
-          nullptr, slicedParamValues, localVars, localFuncArgs);
+      // TODO: NEW parameters
+      string insertLogFormat =
+          getInsertLogOnDenial(_module, func, callInst, nullptr,
+                               slicedParamValues, localVars, localFuncArgs);
 
       // funcname, usage #, has log in AC?, in function, denied branch,
       errs() << "[summary]" << sfp->sname << "," << loopCnt << ","
@@ -1360,101 +1341,103 @@ struct ACFuncAnalyzer {
       fgraph->getSlicedArgs(point, params, gvInACFunc);
     }
   }
+  /*
+    void checkFuncAnalysis(string funcName, ResultCheckFunc *rcf) {
+      // Makes a copy of the Module
+      auto start = std::chrono::high_resolution_clock::now();
+      auto copyM = CloneModule(*_module).release();
+      auto stop = std::chrono::high_resolution_clock::now();
+      auto duration =
+          std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+      errs() << "Time taken to clone a module" << duration.count()
+             << "microseconds\n";
 
-  void checkFuncAnalysis(string funcName, ResultCheckFunc *rcf) {
-    // Makes a copy of the Module
-    auto start = std::chrono::high_resolution_clock::now();
-    auto copyM = CloneModule(*_module).release();
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration =
-        std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    errs() << "Time taken to clone a module" << duration.count()
-           << "microseconds\n";
+      // auto copyM = *_module;
+      // MiniGraphNode* graphNode =
+    m_callGraph->getCallGraphNodeByName(funcName);
+      // Function *entry = graphNode->_function; // the entry is in _module; but
+      // not copyM; if (!entry) {
+      //     LOGERR("Sorry, can not find this function: ", funcName, "\n");
+      //     return;
+      // }
 
-    // auto copyM = *_module;
-    // MiniGraphNode* graphNode = m_callGraph->getCallGraphNodeByName(funcName);
-    // Function *entry = graphNode->_function; // the entry is in _module; but
-    // not copyM; if (!entry) {
-    //     LOGERR("Sorry, can not find this function: ", funcName, "\n");
-    //     return;
-    // }
+      Function *entry = copyM->getFunction(funcName);
 
-    Function *entry = copyM->getFunction(funcName);
+      dg::llvmdg::LLVMDependenceGraphOptions dgOptions{};
+      dgOptions.entryFunction = "main";
+      ModuleWriter writer(funcName, copyM);
+      // #ifdef RM_UNUSED
+      // writer.removeUnusedFromModule();
+      // #endif
 
-    dg::llvmdg::LLVMDependenceGraphOptions dgOptions{};
-    dgOptions.entryFunction = "main";
-    ModuleWriter writer(funcName, copyM);
-    // #ifdef RM_UNUSED
-    // writer.removeUnusedFromModule();
-    // #endif
+      SlicerOptions options;
+      options.dgOptions = dgOptions;
+      MySlicer slicer(copyM, options);
+      // build dependency graph
+      if (!slicer.buildDG()) {
+        errs() << "ERROR: Failed building DG\n";
+        return;
+      }
+      // FIXME: slicingInstruction should be the store before each deny path.
+    This
+      // should be running outside of this funciton.
+      std::set<llvm::Instruction *> slicingInstructions;
+      int third = 0;
 
-    SlicerOptions options;
-    options.dgOptions = dgOptions;
-    MySlicer slicer(copyM, options);
-    // build dependency graph
-    if (!slicer.buildDG()) {
-      errs() << "ERROR: Failed building DG\n";
-      return;
-    }
-    // FIXME: slicingInstruction should be the store before each deny path. This
-    // should be running outside of this funciton.
-    std::set<llvm::Instruction *> slicingInstructions;
-    int third = 0;
-
-    for (llvm::Function::iterator BB = entry->begin(), BBE = entry->end();
-         BB != BBE; ++BB) {
-      for (llvm::BasicBlock::iterator II = BB->begin(), IE = BB->end();
-           II != IE; ++II) {
-        if (llvm::isa<llvm::StoreInst>(&*II)) {
-          llvm::Instruction *I = &*II;
-          third++;
-          if (third == 3) {
-            slicingInstructions.insert(I);
-            break;
+      for (llvm::Function::iterator BB = entry->begin(), BBE = entry->end();
+           BB != BBE; ++BB) {
+        for (llvm::BasicBlock::iterator II = BB->begin(), IE = BB->end();
+             II != IE; ++II) {
+          if (llvm::isa<llvm::StoreInst>(&*II)) {
+            llvm::Instruction *I = &*II;
+            third++;
+            if (third == 3) {
+              slicingInstructions.insert(I);
+              break;
+            }
           }
         }
       }
-    }
-    for (auto I : slicingInstructions) {
-      errs() << *I << "\n";
-    }
-    // for (auto I : slicingInstructions) {
-    //     errs() << *(I->getParent()->getParent()) << "\n";
-    // }
+      for (auto I : slicingInstructions) {
+        errs() << *I << "\n";
+      }
+      // for (auto I : slicingInstructions) {
+      //     errs() << *(I->getParent()->getParent()) << "\n";
+      // }
 
-    set<LLVMNode *> criteria_nodes;
-    slicer.getDG().getInstructionSites(slicingInstructions, &criteria_nodes);
-    // --------make the criteria nodes mine.
+      set<LLVMNode *> criteria_nodes;
+      slicer.getDG().getInstructionSites(slicingInstructions, &criteria_nodes);
+      // --------make the criteria nodes mine.
 
-    if (criteria_nodes.empty()) {
-      llvm::errs() << "Did not find slicing criteria \n";
-    }
+      if (criteria_nodes.empty()) {
+        llvm::errs() << "Did not find slicing criteria \n";
+      }
 
-    errs() << slicingInstructions.size() << " slcie instructions\n";
-    errs() << criteria_nodes.size() << " criteria nodes\n";
-    errs() << "Done with criteria!\n";
-    // mark nodes that are going to be in the slice
-    if (!slicer.mark(criteria_nodes)) {
-      llvm::errs() << "Finding dependent nodes failed\n";
+      errs() << slicingInstructions.size() << " slcie instructions\n";
+      errs() << criteria_nodes.size() << " criteria nodes\n";
+      errs() << "Done with criteria!\n";
+      // mark nodes that are going to be in the slice
+      if (!slicer.mark(criteria_nodes)) {
+        llvm::errs() << "Finding dependent nodes failed\n";
+        return;
+      }
+
+      // slice the graph
+      if (!slicer.slice()) {
+        errs() << "ERROR: Slicing failed\n";
+        return;
+      }
+      // slicer.sliceByFunctionName("vsf_access_check_number");
+      // remove unneeded parts of the module
+      writer.removeUnusedFromModule();
+      //     // fix linkage of declared functions (if needs to be fixed)
+      writer.makeDeclarationsExternal();
+
+      // errs() << *(copyM->getFunction(funcName));
+      writer.cleanAndSaveModule();
       return;
     }
-
-    // slice the graph
-    if (!slicer.slice()) {
-      errs() << "ERROR: Slicing failed\n";
-      return;
-    }
-    // slicer.sliceByFunctionName("vsf_access_check_number");
-    // remove unneeded parts of the module
-    writer.removeUnusedFromModule();
-    //     // fix linkage of declared functions (if needs to be fixed)
-    writer.makeDeclarationsExternal();
-
-    // errs() << *(copyM->getFunction(funcName));
-    writer.cleanAndSaveModule();
-    return;
-  }
-
+  */
   void findArgs(Function *checkfunc, list<Value *> &args) {
     for (auto ab = checkfunc->arg_begin(), ae = checkfunc->arg_end(); ab != ae;
          ++ab) {
@@ -1487,8 +1470,6 @@ struct ACFuncAnalyzer {
 
     return matchValue(contVal, bitlen, rcf);
   }
-
-
 
   // use the deny point to find backward slice the parameters
   //
@@ -1588,7 +1569,6 @@ struct ACFuncAnalyzer {
             fifoQueue.push_back(*bitr);
         }
       }
-
 
       // errs() << "After =====\n";
       // errs() << visted.size() << "======\n";

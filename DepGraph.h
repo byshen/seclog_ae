@@ -4,7 +4,7 @@
 #define _DepGraphs_H_
 
 #include "Common.h"
-#include "DGFuncAnalyzer.h"
+// #include "DGFuncAnalyzer.h"
 #include "DataDependencyAnalyzer.h" // TaintAnalysis
 #include "DataFlowAnalysis.h"
 #include "LogicRelationAnalysis.h"
