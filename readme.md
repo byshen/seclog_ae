@@ -21,7 +21,15 @@ The following are the commands for installation on Ubuntu 18.04. (The docker ima
 
 ```bash
 # Step 0: install build essentials
-sudo apt-get install build-essential zlib1g-dev python
+sudo apt-get install build-essential zlib1g-dev cmake
+
+cd ~
+curl -SL https://releases.llvm.org/9.0.0/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz | tar -xJC .
+mv clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04 clang_9.0.0
+sudo mv clang_9.0.0 /usr/local
+export PATH=/usr/local/clang_9.0.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/clang_9.0.0/lib:$LD_LIBRARY_PATH
+# After this, you should have clang and clang++
 
 # Step 1: Install llvm
 cd ~
@@ -31,12 +39,7 @@ mkdir llvm-9.0.0.obj
 mkdir llvm-9.0.0.install
 
 cd llvm-9.0.0.obj
-cmake  -DLLVM_TARGETS_TO_BUILD=X86 \
-    -DCMAKE_BUILD_TYPE="Release"  \ # (or use "Debug" for debug version)
-    -DCMAKE_INSTALL_PREFIX=../llvm-9.0.0.install \
-    -DCMAKE_C_COMPILER=clang \
-    -DCMAKE_CXX_COMPILER=clang++ \
-    ../llvm-9.0.0.src
+cmake  -DLLVM_TARGETS_TO_BUILD=X86 -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=../llvm-9.0.0.install -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ../llvm-9.0.0.src
 
 # Make could take 20 min to 1 hr depending on your machine :)
 make -j6 # or use more cores that you have.
@@ -54,7 +57,7 @@ export LLVM_COMPILER=clang
 ```bash 
 # Download the source code
 cd ~/llvm-9.0.0.src/lib/Transforms/
-git clone https://repo-link-anonymized.git # clone this repo
+git clone https://github.com/byshen/seclog_ae AceInstrument # clone this repo
 
 # modify the CMakeLists to include AceInstrument
 echo "add_subdirectory(AceInstrument)" >> ~/llvm-9.0.0.src/lib/Transforms/CMakeLists.txt
