@@ -1,8 +1,8 @@
 app=$1
 sub=$2
 
-BUILD_DIR="/home/byshen/clang_files/llvm-9.0.0.obj"
-APP_DIR="/home/byshen/clang_files/llvm-9.0.0.src/lib/Transforms/AceInstrument"
+BUILD_DIR="/home/ubuntu/llvm-9.0.0.obj"
+APP_DIR="/home/ubuntu/llvm-9.0.0.src/lib/Transforms/AceInstrument"
 
 cd $APP_DIR
 if [ "$app" = "postfix" ]; then
