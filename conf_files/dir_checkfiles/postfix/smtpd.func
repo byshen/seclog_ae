@@ -1,0 +1,15 @@
+check_user_acl_byuid 4399 NE
+login_sender_match 0 EQ
+check_server_access 2 EQ 
+reject_unknown_address 2 EQ 
+reject_unauth_destination 2 EQ
+generic_checks 2 EQ
+smtpd_check_size 4399 NE 
+smtpd_check_mail 4399 NE
+smtpd_check_client 4399 NE
+smtpd_check_data 4399 NE
+smtpd_check_helo 4399 NE 
+smtpd_check_rcpt 4399 NE
+smtpd_check_addr 0 NE
+#http://www.postfix.org/SMTPD_ACCESS_README.html
+# if error text is not null, then reject

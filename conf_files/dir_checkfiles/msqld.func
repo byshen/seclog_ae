@@ -1,0 +1,3 @@
+aclCheckLocal 0 EQ
+aclCheckPerms 0 EQ
+aclCheckAccess 0 EQ

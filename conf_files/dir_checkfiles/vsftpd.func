@@ -1,0 +1,23 @@
+str_fileread 0 NE vsf_sysutil_retval_is_error *result_check_func_3
+str_lstat 0 NE vsf_sysutil_retval_is_error *result_check_func_3
+vsf_sysutil_stat 0 NE vsf_sysutil_retval_is_error *result_check_func_3
+vsf_sysutil_create_or_open_file_append 0 NE vsf_sysutil_retval_is_error *result_check_func_3
+vsf_sysutil_bind 0 NE vsf_sysutil_retval_is_error *result_check_func_3
+vsf_sysutil_listen 0 NE vsf_sysutil_retval_is_error *result_check_func_3
+vsf_sysutil_getpwnam 4399 EQ *result_check_func_4
+str_getpwnam 4399 EQ *result_check_func_4
+str_readlink 0 NE *result_check_func_2
+str_unlink 0 NE *result_check_func_2
+str_rmdir 0 NE *result_check_func_2
+str_mkdir 0 NE *result_check_func_2
+vsf_sysutil_write_access 0 NE *result_check_func_2
+vsf_sysutil_setmodtime 0 NE *result_check_func_2
+vsf_access_check_file 0 EQ *result_check_func_1
+vsf_sysdep_check_auth 0 EQ *result_check_func_1
+ssl_session_init 0 EQ *result_check_func_1
+# end
+p_peekfunc       # function pointer
+
+bool test_str_fileread(retVal) {
+    return vsf_sysutil_retval_is_error(retVal) != 0;
+}

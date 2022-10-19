@@ -1,0 +1,71 @@
+pg_attribute_aclcheck 0 NE
+pg_attribute_aclcheck_all 0 NE
+pg_class_aclcheck 0 NE
+pg_database_aclcheck 0 NE
+pg_proc_aclcheck 0 NE
+pg_language_aclcheck 0 NE
+pg_largeobject_aclcheck_snapshot 0 NE
+pg_namespace_aclcheck 0 NE
+pg_tablespace_aclcheck 0 NE
+pg_foreign_data_wrapper_aclcheck 0 NE
+pg_foreign_server_aclcheck 0 NE
+pg_type_aclcheck 0 NE
+
+pg_class_ownercheck -1000 EQ
+pg_type_ownercheck -1000 EQ
+pg_oper_ownercheck -1000 EQ
+pg_proc_ownercheck -1000 EQ
+pg_language_ownercheck -1000 EQ
+pg_largeobject_ownercheck -1000 EQ
+pg_namespace_ownercheck -1000 EQ
+pg_tablespace_ownercheck -1000 EQ
+pg_opclass_ownercheck -1000 EQ
+pg_opfamily_ownercheck -1000 EQ
+pg_database_ownercheck -1000 EQ
+pg_collation_ownercheck -1000 EQ
+pg_conversion_ownercheck -1000 EQ
+pg_ts_dict_ownercheck -1000 EQ
+pg_ts_config_ownercheck -1000 EQ
+pg_foreign_data_wrapper_ownercheck -1000 EQ
+pg_foreign_server_ownercheck -1000 EQ
+pg_event_trigger_ownercheck -1000 EQ
+pg_extension_ownercheck -1000 EQ
+pg_publication_ownercheck -1000 EQ
+pg_subscription_ownercheck -1000 EQ
+pg_statistics_object_ownercheck -1000 EQ
+#
+pg_class_ownercheck -1000 EQ
+pg_type_ownercheck -1000 EQ
+pg_oper_ownercheck -1000 EQ
+pg_proc_ownercheck -1000 EQ
+pg_language_ownercheck -1000 EQ
+pg_largeobject_ownercheck -1000 EQ
+pg_namespace_ownercheck -1000 EQ
+pg_tablespace_ownercheck -1000 EQ
+pg_opclass_ownercheck -1000 EQ
+pg_opfamily_ownercheck -1000 EQ
+pg_database_ownercheck -1000 EQ
+pg_collation_ownercheck -1000 EQ
+pg_conversion_ownercheck -1000 EQ
+pg_ts_dict_ownercheck -1000 EQ
+pg_ts_config_ownercheck -1000 EQ
+pg_foreign_data_wrapper_ownercheck -1000 EQ
+pg_foreign_server_ownercheck -1000 EQ
+pg_event_trigger_ownercheck -1000 EQ
+pg_extension_ownercheck -1000 EQ
+pg_publication_ownercheck -1000 EQ
+pg_subscription_ownercheck -1000 EQ
+pg_statistics_object_ownercheck -1000 EQ
+
+
+
+#
+4399 is nullptr (constant pointer)
+-1000 is false (boolean)
+-2000 is true (boolean)
+
+OpenTransientFile 0 < 
+PathNameOpenFile 0 <
+
+has_createrole_privilege
+has_bypassrls_privilege

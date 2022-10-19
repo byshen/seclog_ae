@@ -1,0 +1,3 @@
+greater_than_zero_bool(int) -2000 EQ
+#
+greater_than_zero(int) 0 NE util_is_error(int) # util_is_error(val) != 0 means access deny
