@@ -1,7 +1,7 @@
 OPTION(LLVM_DG "Support for LLVM Dependency graph" ON)
 OPTION(ENABLE_CFG "Add support for CFG edges to the graph" ON)
-set(LLVM_INCLUDE_DIRS "/usr/local/clang_bk/include")
-set(LLVM_LIBRARY_DIRS "/usr/local/clang_bk/lib")
+set(LLVM_INCLUDE_DIRS "/usr/local/clang_9.0.0/include")
+set(LLVM_LIBRARY_DIRS "/usr/local/clang_9.0.0/lib")
 set(LLVM_DEFINITIONS "-D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS")
 
 
@@ -279,10 +279,5 @@ target_link_libraries(dgllvmsdg
 		      PUBLIC dgllvmpta
 		      PUBLIC dgllvmdda
 		      PUBLIC dgllvmcda)
-
-install(TARGETS dgllvmdg dgllvmthreadregions dgllvmcda
-                dgllvmpta dgllvmdda dgpta dgdda dganalysis
-		dgllvmforkjoin dgllvmsdg
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 endif(LLVM_DG)
