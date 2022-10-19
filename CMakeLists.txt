@@ -12,12 +12,8 @@ add_llvm_library(AceInstrumentPass MODULE
     Utils.cpp
 
     SHARED
-    llvm/Support/raw_ostream.h
-    llvm/Support/CommandLine.h
-    llvm/Support/PrettyStackTrace.h
-    llvm/Support/Signals.h
-    llvm/Support/SourceMgr.h
-
+    ${LLVM_MAIN_INCLUDE_DIR}/llvm/Support
+    
     PLUGIN_TOOL
     opt
 )
