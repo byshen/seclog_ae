@@ -1,0 +1,13 @@
+check_open_permission 0 NE field 0
+# 
+
+typedef struct fsal_status__ {
+        int major;      /*< FSAL status code */
+        int minor;              /*< Other error code (usually POSIX) */
+} fsal_status_t;
+
+fsal_status_t check_open_permission(struct fsal_obj_handle* obj, bool flag, char* reason) {
+        fsal_status_t status = {0, 0};
+        return status;
+}
+

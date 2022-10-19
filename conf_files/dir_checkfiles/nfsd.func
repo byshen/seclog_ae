@@ -1,0 +1,29 @@
+check_open_permission 0 NE field 0
+#
+nfs4_export_check_access 13 EQ
+svc_auth_authenticate 0 NE
+nfs_req_creds 13 EQ
+init_database_access 0 NE
+fsal_readdir 0 NE field 0
+fsal_test_access 0 NE field 0
+fsal_check_setattr_perms 0 NE field 0
+# can not handle
+struct test_access
+#
+bool result_check_nfs4_export_check_access(int retVal) {
+    return retVal == 13;
+}
+
+bool test_str_fileread(fsal_status retVal) {
+    return retVal.val != 0;
+}
+
+# Example			
+	status = check_open_permission(*obj, openflags,
+				       createmode >= FSAL_EXCLUSIVE, &reason);
+    if (FSAL_IS_ERROR(status)) {
+		LogDebug(COMPONENT_FSAL,
+			 "Not opening file file %s%s",
+			 reason, fsal_err_txt(status));
+		return status;
+	}

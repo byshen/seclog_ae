@@ -1,0 +1,12 @@
+check_user 0 EQ
+check_group 0 EQ
+auth_find_userlist 4399 EQ
+http_req_get_intercept_rule 3 EQ
+
+# the following is just internal
+ret = acl_exec_cond(rule->cond, s->be, sess, s, SMP_OPT_DIR_REQ|SMP_OPT_FINAL);
+ret = acl_pass(ret);
+if (rule->cond->pol == ACL_COND_UNLESS)
+
+build_acl_cond 4399 EQ
+parse_acl_cond 4399 EQ

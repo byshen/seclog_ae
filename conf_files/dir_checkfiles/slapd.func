@@ -1,0 +1,8 @@
+slap_sasl_authorized 0 NE
+slap_sasl_matches 0 NE
+
+# Tested
+
+slap_passwd_check 0 NE
+access_allowed_mask 0 NE
+acl_check_modlist 0 EQ
